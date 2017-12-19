@@ -2,9 +2,10 @@
   "name": "gulp-url-transform",
   "version": "0.0.1",
   "description": "Change the reference path to a specific location inside the file.",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test:move": "gulp --gulpfile ./test/output/gulp.js test:move",
+    "test:build": "gulp --gulpfile ./test/output/gulp.js test:build"
   },
   "repository": {
     "type": "git",
@@ -22,5 +23,13 @@
   "bugs": {
     "url": "https://github.com/holidaypenguin/gulp-url-transform/issues"
   },
-  "homepage": "https://github.com/holidaypenguin/gulp-url-transform#readme"
+  "homepage": "https://github.com/holidaypenguin/gulp-url-transform#readme",
+  "dependencies": {
+    "gulp-util": "^3.0.8",
+    "lodash": "^4.17.4",
+    "through2": "^2.0.3"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1"
+  }
 }
