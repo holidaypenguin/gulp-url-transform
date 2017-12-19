@@ -11,11 +11,14 @@
     "url": "git+https://github.com/holidaypenguin/gulp-url-transform.git"
   },
   "keywords": [
-    "url",
-    "replace"
+    "gulp",
+    "gulpplugin",
+    "replace",
+    "transform",
+    "batch"
   ],
-  "author": "holidaypenguin",
-  "license": "ISC",
+  "author": "holidaypenguin<songship1221@sina.com>",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/holidaypenguin/gulp-url-transform/issues"
   },
