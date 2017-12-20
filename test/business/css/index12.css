@@ -1,0 +1,9 @@
+
+body{
+    background-image: url(__uri(../images/bg1.png));
+    background-image: url(__uri(../images/bg2.png));
+    background-image: url(__uri(../images/bg3.png));
+    background-image: url(__uri(../images/bg4.png));
+    background-image: url(__uri(../images/bg5.png));
+    background-image: url(__uri(../images/bg6.png));
+}

@@ -4,8 +4,9 @@
   "description": "Change the reference path to a specific location inside the file.",
   "main": "src/index.js",
   "scripts": {
-    "test:move": "gulp --gulpfile ./test/output/gulp.js test:move",
-    "test:build": "gulp --gulpfile ./test/output/gulp.js test:build"
+    "test:move": "gulp --gulpfile ./test/gulp.js test:move",
+    "test:absolute:build": "gulp --gulpfile ./test/output/gulp.js test:absolute:build",
+    "test:absolute": "npm-run-all --parallel test:move test:absolute:build"
   },
   "repository": {
     "type": "git",
@@ -30,6 +31,7 @@
     "through2": "^2.0.3"
   },
   "devDependencies": {
-    "gulp": "^3.9.1"
+    "gulp": "^3.9.1",
+    "npm-run-all": "^4.1.2"
   }
 }
