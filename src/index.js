@@ -1,7 +1,7 @@
 let through = require('through2');
 let gutil = require("gulp-util");
 let { PluginError } = gutil;
-let { dirname, relative, resolve, sep } = require('path');
+let { dirname, relative, resolve, sep, normalize } = require('path');
 let { clone, merge } = require('lodash');
 
 let PLUGIN_NAME = 'gulp-file-url';
@@ -97,14 +97,14 @@ function absoluteReplaceDoit(rootPath, opts, file){
     opts.debug && log(file.path);
 
     return fileContent.replace(regExp, function(matched, relPath) {
-        let imagePath = resolve(filePath, relPath);
-        let absPath = relative(rootPath, imagePath);
+        let fullPath = resolve(filePath, relPath);
+        let absPath = relative(rootPath, fullPath).split(sep).join("/");
 
-        opts.debug && console.log("\t",relPath, "\n\t\t=>", sep + absPath);
-        console.log("\t\timagePath=",imagePath);
+        opts.debug && console.log("\t",relPath, "\n\t\t=>", "/" + absPath);
+        // console.log("\t\tfullPath=",normalize(fullPath));
         console.log("\t\trootPath=",rootPath);
 
-        return `"${sep}${absPath}"`;
+        return `"/${absPath}"`;
     });
 }
 
