@@ -1,3 +1,11 @@
+/*
+* @Author: songshipeng
+* @Date:   2017-12-19 18:36:32
+* @Email:  songship1221@sina.com
+* @Last Modified by:   songshipeng
+* @Last Modified time: 2018-01-11 11:26:43
+*/
+
 
 let through = require('through2');
 let gutil = require("gulp-util");
@@ -17,7 +25,8 @@ let logTransform = function(from, to){
 
 let defOpts = {
     base: '.',
-    keyword: '__uri'
+    keyword: '__uri',
+    debug: false
 };
 
 module.exports = {
@@ -78,7 +87,7 @@ function getRelativeFileContent(rootPath, opts, file){
 
         opts.debug && logTransform(absPath, relPath);
 
-        return `"/${relPath}"`;
+        return getReturnPath(relPath, opts);
     });
 }
 
@@ -100,7 +109,7 @@ function getAbsoluteFileContent(rootPath, opts, file){
 
         opts.debug && logTransform(relPath, absPath);
 
-        return `"/${absPath}"`;
+        return getReturnPath(`/${absPath}`, opts);
     });
 }
 
@@ -109,4 +118,13 @@ function getParams(file){
         filePath: dirname(file.path),
         fileContent: file.contents.toString()
     };
+}
+
+function getReturnPath(path, opts){
+    switch(opts.keyword){
+        case 'url': return `url("${path}")`;
+        case 'src': return `src="${path}"`;
+        case 'href': return `href="${path}"`;
+        default: return `"${path}"`;
+    }
 }

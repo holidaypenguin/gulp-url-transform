@@ -1,2 +1,2 @@
 
-var file = "__uri(../images/bg.png)";
+let file = "__uri(../images/bg.png)";
