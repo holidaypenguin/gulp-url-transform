@@ -3,7 +3,7 @@
 * @Date:   2017-12-19 18:36:32
 * @Email:  songship1221@sina.com
 * @Last Modified by:   songshipeng
-* @Last Modified time: 2018-01-11 11:26:43
+* @Last Modified time: 2018-01-17 10:12:30
 */
 
 
@@ -16,7 +16,7 @@ let { clone, merge } = require('lodash');
 let PLUGIN_NAME = 'gulp-file-url';
 
 let logPath = function(path) {
-    return gutil.log("" + (gutil.colors.cyan(path)));
+    return gutil.log(gutil.colors.cyan(path));
 };
 
 let logTransform = function(from, to){
@@ -31,16 +31,16 @@ let defOpts = {
 
 module.exports = {
     toRelative(opts){
-        return commonReplace(opts, getRelativeFileContent);
+        return commonReplace(opts, getRelativeFileContent, getRelativeRegExp);
     },
     toAbsolute(opts){
-        return commonReplace(opts, getAbsoluteFileContent);
+        return commonReplace(opts, getAbsoluteFileContent, getAbsoluteRegExp);
         
     },
 };
 
 
-function commonReplace(opts, fileContentFn){
+function commonReplace(opts, fileContentFn, regExpFn){
     if (opts == null) {
         opts = {};
     }
@@ -56,7 +56,7 @@ function commonReplace(opts, fileContentFn){
             return;
         }
         if (file.isBuffer()) {
-            let fileContent = fileContentFn(rootPath, opts, file);
+            let fileContent = fileContentFn(rootPath, opts, file, regExpFn(opts));
 
             file.contents = new Buffer(fileContent);
             this.push(file);
@@ -69,13 +69,9 @@ function commonReplace(opts, fileContentFn){
     });
 }
 
-/**
- * regExp No.1 /['"]?__uri\s*\(\s*['"]?(\/.*?)['"]?\s*\)['"]?/g
- * regExp No.2 new RegExp("[\'\"]?__uri\\s*\\(\\s*[\'\"]?(\\/.*?)[\'\"]?\\s*\\)[\'\"]?", "g")
- */
-function getRelativeFileContent(rootPath, opts, file){
-    let {filePath, fileContent} = getParams(file),
-        regExp = new RegExp(`['"]?${opts.keyword}\\s*\\(\\s*['"]?(\\/.*?)['"]?\\s*\\)['"]?`, "g");
+
+function getRelativeFileContent(rootPath, opts, file, regExp){
+    let {filePath, fileContent} = getParams(file);
     
     if(!regExp.test(fileContent)) return fileContent;
 
@@ -92,12 +88,16 @@ function getRelativeFileContent(rootPath, opts, file){
 }
 
 /**
- * regExp No.1 /['"]?__uri\s*\(\s*['"]?([^\/][^data:].*?)['"]?\s*\)['"]?/g
- * regExp No.2 new RegExp("[\'\"]?__uri\\s*\\(\s*[\'\"]?([^\\/][^data:].*?)[\'\"]?\\s*\\)[\'\"]?", "g")
+ * regExp No.1 /['"]?__uri\s*\(\s*['"]?(\/.*?)['"]?\s*\)['"]?/g
+ * regExp No.2 new RegExp("[\'\"]?__uri\\s*\\(\\s*[\'\"]?(\\/.*?)[\'\"]?\\s*\\)[\'\"]?", "g")
  */
-function getAbsoluteFileContent(rootPath, opts, file){
-    let {filePath, fileContent} = getParams(file),
-        regExp = new RegExp(`['"]?${opts.keyword}\\s*\\(\s*['"]?([^\\/][^data:].*?)['"]?\\s*\\)['"]?`, "g");
+function getRelativeRegExp(opts){
+    return new RegExp(`['"]?${opts.keyword}\\s*\\(\\s*['"]?(\\/.*?)['"]?\\s*\\)['"]?`, "g");
+}
+
+
+function getAbsoluteFileContent(rootPath, opts, file, regExp){
+    let {filePath, fileContent} = getParams(file);
 
     if(!regExp.test(fileContent)) return fileContent;
 
@@ -111,6 +111,14 @@ function getAbsoluteFileContent(rootPath, opts, file){
 
         return getReturnPath(`/${absPath}`, opts);
     });
+}
+
+/**
+ * regExp No.1 /['"]?__uri\s*\(\s*['"]?([^\/][^data:].*?)['"]?\s*\)['"]?/g
+ * regExp No.2 new RegExp("[\'\"]?__uri\\s*\\(\s*[\'\"]?([^\\/][^data:].*?)[\'\"]?\\s*\\)[\'\"]?", "g")
+ */
+function getAbsoluteRegExp(opts){
+    return new RegExp(`['"]?${opts.keyword}\\s*\\(\s*['"]?([^\\/][^data:].*?)['"]?\\s*\\)['"]?`, "g");
 }
 
 function getParams(file){
