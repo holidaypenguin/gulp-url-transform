@@ -4,7 +4,7 @@
 
 [![npm](https://nodei.co/npm/gulp-url-transform.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/gulp-url-transform/)
 
-[README-CH.md](https://github.com/holidaypenguin/gulp-url-transform/blob/master/README.md)
+[README-CH.md](https://github.com/holidaypenguin/gulp-url-transform/blob/master/README-CH.md)
 
 ## Install
 
