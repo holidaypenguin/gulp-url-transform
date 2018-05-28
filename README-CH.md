@@ -1,20 +1,19 @@
 
 # gulp-url-transform
-> Change the reference path to a specific location inside the file.
+> 将参考路径更改为文件内的特定路径。
 
 [![npm](https://nodei.co/npm/gulp-url-transform.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/gulp-url-transform/)
 
-[README-CH.md](https://github.com/holidaypenguin/gulp-url-transform/blob/master/README.md)
-
 ## Install
+
 
 ```
 npm install --save-dev gulp-url-transform
 ```
 
-## Examples
+## 例子
 
-gulp js
+gulp js 代码
 
 ```js
 const transform = require("gulp-url-transform");
@@ -26,7 +25,7 @@ gulp.task("build:absolute:all", ()=>{
 });
 ```
 
-file in
+文件输入代码
 
 ```css
 body{
@@ -34,16 +33,16 @@ body{
 }
 ```
 
-file out
+文件输出代码
 ```css
 body{
     background-image: url("/t_static/business/images/bg1.png");
 }
 ```
 
-## Usage
+## 用法
 
-Let's say you have this structure:
+假设你有如下这个结构:
 
 ```tcl
 t_static
@@ -57,7 +56,7 @@ t_static
 |   `--index.html
 `-- gulp.js
 ```
-In `/t_static/business/css/index.css` you might have:
+在 `/t_static/business/css/index.css` 中有如下内容:
 
 ```css
 body{
@@ -65,13 +64,13 @@ body{
 }
 ```
 
-In `/t_static/business/js/index.js` you might have:
+在 `/t_static/business/js/index.js` 中有如下内容:
 
 ```js
 let file = "__uri(../images/bg.png)";
 ```
 
-In `/t_static/business/input.html` you might have:
+在 `/t_static/business/input.html` 中有如下内容:
 
 ```html
 <!DOCTYPE html>
@@ -86,7 +85,7 @@ In `/t_static/business/input.html` you might have:
 </html>
 ```
 
-In `/gulp.js` you might have:
+在 `/gulp.js` 中有如下内容:
 
 ```js
 const gulp = require("gulp");
@@ -101,9 +100,9 @@ gulp.task("default", ()=>{
 });
 ```
 
-`gulp`
+执行 `gulp` 命令
 
-Out `/t_static/business/css/index.css` :
+输出 `/t_static/business/css/index.css` 如下内容:
 
 ```css
 body{
@@ -111,13 +110,13 @@ body{
 }
 ```
 
-Out `/t_static/business/js/index.js` :
+输出 `/t_static/business/js/index.js` 如下内容:
 
 ```js
 let file = "/t_static/business/images/bg.png";
 ```
 
-Out `/t_static/business/input.html` :
+输出 `/t_static/business/input.html` 如下内容:
 
 ```html
 <!DOCTYPE html>
@@ -134,23 +133,23 @@ Out `/t_static/business/input.html` :
 
 
 
-## API
+## API 接口
 
-### Conversion into absolute path
+### 转换成绝对路径
 
 `transform.toAbsolute(options)`
 * `options`:
-    * `base`: (default `.`) The path of document root.
-    * `keyword`: (default `__uri`) Convert the url that this keyword contains.
-    * `debug`:(default `false`) 是否显示打印信息
+    * `base`: (默认 `.`) 文档根的路径.
+    * `keyword`: (默认 `__uri`) 转换这个关键字包含的URL.
+    * `debug`:(默认 `false`) 是否显示打印信息
 
-### Conversion into relative path.
+### 转换成相对路径
 
 `transform.toRelative(options)`
 * `options`:
-    * `base`: (default `.`) The path of document root.
-    * `keyword`: (default `__uri`) Convert the url that this keyword contains.
-    * `debug`:(default `false`) 是否显示打印信息
+    * `base`: (默认 `.`) 文档根的路径.
+    * `keyword`: (默认 `__uri`) 转换这个关键字包含的URL.
+    * `debug`:(默认 `false`) 是否显示打印信息
 
 ## License
 
