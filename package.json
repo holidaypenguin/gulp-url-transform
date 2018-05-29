@@ -1,6 +1,6 @@
 {
   "name": "gulp-url-transform",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Change the reference path to a specific location inside the file.",
   "main": "src/index.js",
   "scripts": {
