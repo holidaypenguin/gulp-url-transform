@@ -1,6 +1,6 @@
 
 # gulp-url-transform
-> 将参考路径更改为文件内的特定路径。
+> 将参考路径替换为文件内的特定路径。
 
 [![npm](https://nodei.co/npm/gulp-url-transform.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/gulp-url-transform/)
 
@@ -131,25 +131,61 @@ let file = "/t_static/business/images/bg.png";
 </html>
 ```
 
+## 扩展用法
+在替换前和替换后对指定路径进行修改
 
+```
+gulp.src("./t_static/**/**")
+    .pipe(transform.toAbsolute({
+        debug: true,
+        before(relPath, file){
+            return relPath;
+        },
+        after(absPath, file){
+            // return "http://www.baidu.com"+absPath;
+            return absPath;
+        }
+    }))
+    .pipe(gulp.dest('./t_static/'));
+```
 
 ## API 接口
 
-### 转换成绝对路径
+### 替换成绝对路径
 
 `transform.toAbsolute(options)`
 * `options`:
     * `base`: (默认 `.`) 文档根的路径.
     * `keyword`: (默认 `__uri`) 转换这个关键字包含的URL.
-    * `debug`:(默认 `false`) 是否显示打印信息
+    * `debug`:(默认 `false`) 是否显示转换信息
+    * `before`: (默认空方法 `(relPath, file) => relPath`) 转换前调用
+        * `relPath`: 待转换的相对路径
+        * `file`: 转换路径所在文件
+            * `path`: 文件路径
+            * `contents`: 文件内容
+    * `after`: (默认空方法 `(absPath, file) => absPath`) 转换后调用
+        * `absPath`: 转换后的绝对路径
+        * `file`: 转换路径所在文件
+            * `path`: 文件路径
+            * `contents`: 文件内容
 
-### 转换成相对路径
+### 替换成相对路径
 
 `transform.toRelative(options)`
 * `options`:
     * `base`: (默认 `.`) 文档根的路径.
     * `keyword`: (默认 `__uri`) 转换这个关键字包含的URL.
-    * `debug`:(默认 `false`) 是否显示打印信息
+    * `debug`:(默认 `false`) 是否显示转换信息
+    * `before`: (默认空方法 `(absPath, file) => absPath`) 转换前调用
+        * `absPath`: 待转换的绝对路径
+        * `file`: 转换路径所在文件
+            * `path`: 文件路径
+            * `contents`: 文件内容
+    * `after`: (默认空方法 `(relPath, file) => relPath`) 转换后调用
+        * `relPath`: 转换后的相对路径
+        * `file`: 转换路径所在文件
+            * `path`: 文件路径
+            * `contents`: 文件内容
 
 ## License
 

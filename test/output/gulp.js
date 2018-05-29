@@ -3,7 +3,7 @@
 * @Date:   2017-12-19 18:44:26
 * @Email:  songship1221@sina.com
 * @Last Modified by:   songshipeng
-* @Last Modified time: 2017-12-21 10:57:57
+* @Last Modified time: 2018-05-29 13:26:05
 */
 
 const gulp = require("gulp");
@@ -42,7 +42,14 @@ gulp.task("build:absolute:html", ()=>{
 gulp.task("build:absolute:all", ()=>{
     gulp.src("./t_static/**/**")
         .pipe(transform.toAbsolute({
-            debug: true
+            debug: true,
+            before(relPath, file){
+                return relPath;
+            },
+            after(absPath, file){
+                // return "http://local.rongyi.com"+absPath;
+                return absPath;
+            }
         }))
         .pipe(gulp.dest('./t_static/'));
 });
