@@ -1,12 +1,13 @@
 
-# [gulp](https://github.com/wearefractal/gulp)-url-transform
+# gulp-url-transform
 > Change the reference path to a specific location inside the file.
+
+[![npm](https://nodei.co/npm/gulp-url-transform.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/gulp-url-transform/)
+
+[README-CH.md](https://github.com/holidaypenguin/gulp-url-transform/blob/master/README-CH.md)
 
 ## Install
 
-none
-
-feature will
 ```
 npm install --save-dev gulp-url-transform
 ```
@@ -135,17 +136,41 @@ Out `/t_static/business/input.html` :
 
 ## API
 
+### Conversion into absolute path
+
 `transform.toAbsolute(options)`
 * `options`:
     * `base`: (default `.`) The path of document root.
     * `keyword`: (default `__uri`) Convert the url that this keyword contains.
-    * `debug`:(default `false`) 是否显示打印信息
+    * `debug`:(default `false`) Whether to display conversion information.
+    * `before`: (default `(relPath, file) => relPath`) Call before replacement.
+        * `relPath`: Relative path to replace.
+        * `file`: Replace the path where the file.
+            * `path`: file path
+            * `contents`: document content
+    * `after`: (default `(absPath, file) => absPath`) Call after replacement.
+        * `absPath`: Replaced absolute path
+        * `file`: Replace the path where the file.
+            * `path`: file path
+            * `contents`: document content
+
+### Conversion into relative path.
 
 `transform.toRelative(options)`
 * `options`:
     * `base`: (default `.`) The path of document root.
     * `keyword`: (default `__uri`) Convert the url that this keyword contains.
-    * `debug`:(default `false`) 是否显示打印信息
+    * `debug`:(default `false`) Whether to display conversion information.
+    * `before`: (default `(absPath, file) => absPath`) Call before replacement.
+        * `absPath`: Absolute path to replace.
+        * `file`: Replace the path where the file.
+            * `path`: file path
+            * `contents`: document content
+    * `after`: (default `(relPath, file) => relPath`) Call after replacement.
+        * `relPath`: Replaced relative path
+        * `file`: Replace the path where the file.
+            * `path`: file path
+            * `contents`: document content
 
 ## License
 
